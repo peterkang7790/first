@@ -12,7 +12,7 @@
 
 $(document).ready(function(){
 	
-	alert(123234455667788);
+	
 	
 });
 

@@ -20,24 +20,24 @@ public class SampleController {
 	@Resource(name="sampleService")
 	private SampleService sampleService;
 	
-	 @RequestMapping(value="/sample/openSampleBoardList.do", method=RequestMethod.POST)
-	    public ModelAndView openSampleBoardList(Map<String,Object> map) throws Exception{
-	        ModelAndView mv = new ModelAndView();
-	         
-	        List<Map<String,Object>> list = sampleService.selectBoardList(map);
-	        
-	        mv.addObject("list", list);
-	        
-	        
-	        mv.setViewName("sample/boardList");
-	        return mv;
-	    }
+	@RequestMapping(value="/sample/openSampleBoardList.do", method=RequestMethod.GET)
+    public ModelAndView openSampleBoardList(Map<String,Object> map) throws Exception{
+        ModelAndView mv = new ModelAndView();
+         
+        List<Map<String,Object>> list = sampleService.selectBoardList(map);
+        
+        mv.addObject("list", list);
+        
+        
+        mv.setViewName("sample/boardList");
+        return mv;
+    }
 	
-//	@RequestMapping(value="/sample/openSampleList.do")
-//    public ModelAndView openSampleList(Map<String,Object> commandMap) throws Exception{
-//    	ModelAndView mv = new ModelAndView("");
-//    	log.debug("인터셉터 테스트");
-//    	
-//    	return mv;
-//    }
+	@RequestMapping(value="/sample/openSampleList.do")
+    public ModelAndView openSampleList(Map<String,Object> commandMap) throws Exception{
+    	ModelAndView mv = new ModelAndView("");
+    	log.debug("인터셉터 테스트");
+    	
+    	return mv;
+    }
 }
