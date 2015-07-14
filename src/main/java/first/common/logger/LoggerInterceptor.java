@@ -27,7 +27,5 @@ public class LoggerInterceptor extends HandlerInterceptorAdapter {
 		if (log.isDebugEnabled()) {
 			log.debug("======================================           END          ======================================\n");
 		}
-		
-		
 	}
 }

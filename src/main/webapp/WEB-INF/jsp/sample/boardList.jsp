@@ -1,62 +1,71 @@
-<%@page import="java.util.HashMap"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!DOCTYPE html>
+<html lang="ko">
 <head>
-<title>first</title>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ include file="/WEB-INF/include/include-header.jspf" %>
 </head>
 <body>
-<script type='text/javascript'>
-
-$(document).ready(function(){
-	
-	
-	
-});
-
-</script>
-<h2>게시판 목록</h2>
-<table style="border:1px solid #ccc">
-    <colgroup>
-        <col width="10%"/>
-        <col width="*"/>
-        <col width="15%"/>
-        <col width="20%"/>
-    </colgroup>
-    <thead>
-        <tr>
-            <th scope="col">모델아이디</th>
-            <th scope="col">모델명</th>
-            <th scope="col">년도</th>
-            <th scope="col">작성일</th>
-        </tr>
-    </thead>
-    <tbody>
-   
-        <c:choose>
-            <c:when test="${fn:length(list) > 0}">
-            <script>
-            	alert("123456");
-            </script>
-                <c:forEach items="${list}" var="row">
-                    <tr>
-                        <td>${row.MDL_ID }</td>
-                        <td>${row.MDL_NM }</td>
-                        <td>${row.MDL_YEAR }</td>
-                        <td>${row.REG_DT }</td>
-                    </tr>
-                </c:forEach>
-            </c:when>
-            <c:otherwise>
-                <tr>
-                    <td colspan="4">조회된 결과가 없습니다.</td>
-                </tr>
-            </c:otherwise>
-        </c:choose>
+    <table class="board_view">
+        <colgroup>
+            <col width="15%"/>
+            <col width="35%"/>
+            <col width="15%"/>
+            <col width="35%"/>
+        </colgroup>
+        <caption>게시글 상세</caption>
+        <tbody>
+            <tr>
+                <th scope="row">글 번호</th>
+                <td>${map.TITLE }</td>
+                <th scope="row">조회수</th>
+                <td>${map.HIT_CNT }</td>
+            </tr>
+            <tr>
+                <th scope="row">작성자</th>
+                <td>${map.CREA_ID }</td>
+                <th scope="row">작성시간</th>
+                <td>${map.CREA_DTM }</td>
+            </tr>
+            <tr>
+                <th scope="row">제목</th>
+                <td colspan="3">${map.TITLE }</td>
+            </tr>
+            <tr>
+                <td colspan="4">${map.CONTENTS }</td>
+            </tr>
+        </tbody>
+    </table>
+     
+    <a href="#this" class="btn" id="list">목록으로</a>
+    <a href="#this" class="btn" id="update">수정하기</a>
+     
+    <%@ include file="/WEB-INF/include/include-body.jspf" %>
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $("#list").on("click", function(e){ //목록으로 버튼
+                e.preventDefault();
+                fn_openBoardList();
+            });
+             
+            $("#update").on("click", function(e){
+                e.preventDefault();
+                fn_openBoardUpdate();
+            });
+        });
          
-    </tbody>
-</table>
+        function fn_openBoardList(){
+            var comSubmit = new ComSubmit();
+            comSubmit.setUrl("<c:url value='/sample/openBoardList.do' />");
+            comSubmit.submit();
+        }
+         
+        function fn_openBoardUpdate(){
+            var idx = "${map.IDX}";
+            var comSubmit = new ComSubmit();
+            comSubmit.setUrl("<c:url value='/sample/openBoardUpdate.do' />");
+            comSubmit.addParam("IDX", idx);
+            comSubmit.submit();
+        }
+    </script>
 </body>
 </html>
